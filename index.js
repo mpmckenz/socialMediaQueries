@@ -12,6 +12,9 @@ const client = new Client({
 // route handlers go here
 app.get("/users", (req, res) => {
   client.query("SELECT * FROM users", (err, result) => {
+    if (err) {
+      return res.status(500).send(err, "Unexpected error");
+    }
     res.send(result.rows);
   });
 });
